@@ -1,0 +1,41 @@
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: ship_design
+      POSTGRES_USER: ship
+      POSTGRES_PASSWORD: ship_dev
+    ports:
+      - "5438:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ship -d ship_design"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  api:
+    build: ./backend
+    ports:
+      - "8060:8060"
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql+psycopg://ship:ship_dev@db:5432/ship_design
+      CORS_ORIGIN: http://localhost:3060,http://127.0.0.1:3060
+    depends_on:
+      db:
+        condition: service_healthy
+
+  web:
+    build: ./frontend
+    ports:
+      - "3060:3060"
+    environment:
+      NEXT_PUBLIC_API_BASE: http://localhost:8060
+    depends_on:
+      - api
+
+volumes:
+  pgdata:
