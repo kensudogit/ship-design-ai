@@ -1,13 +1,13 @@
 services:
   api:
     build: ./api
-    ports: ['8000:8000']
+    ports: ["8060:8060"]
     environment:
       DATABASE_URL: postgresql+psycopg://ship:${POSTGRES_PASSWORD}@db:5432/ship_design
     depends_on: [db]
   web:
     build: ./web
-    ports: ['3000:3000']
+    ports: ["3060:3060"]
     depends_on: [api]
   db:
     image: postgres:17-alpine
@@ -15,6 +15,7 @@ services:
       POSTGRES_DB: ship_design
       POSTGRES_USER: ship
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports: ["5438:5432"]
     volumes: [pgdata:/var/lib/postgresql/data]
 volumes:
   pgdata:

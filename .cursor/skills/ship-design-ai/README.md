@@ -1,9 +1,10 @@
 # ship-design-ai Skill
 
-Claude Codeで船舶基本設計AIの設計・実装を支援するSkillです。
+船舶基本設計AI（`geom-v3`）の設計・実装を支援する Skill。教育用。実船承認・船級・航行安全の判定には使わない。
 
 ## インストール
-このZIPを展開し、フォルダ `ship-design-ai` を対象プロジェクトの `.claude/skills/` に配置します。
+
+フォルダ名は **`ship-design-ai`**（`SKILL.md` の `name` と一致させる。Claude 必須）。
 
 ```text
 project/
@@ -17,20 +18,35 @@ project/
         assets/
 ```
 
-Claude Codeを再起動するか、新しいセッションで「ship-design-aiを使って船舶基本設計AIの要件定義を作成して」と依頼してください。環境によっては `/ship-design-ai` で呼び出せます。
+Cursor なら同じツリーを `.cursor/skills/ship-design-ai/` または `~/.cursor/skills/ship-design-ai/` にも置く。
+
+## ZIP（カタログ／Claude 互換）
+
+中身のルートはフォルダ `ship-design-ai/`。`ship-design-ai-skill/` にすると「親フォルダ名と name が不一致」になる。
+
+```text
+ship-design-ai-skill.zip
+└── ship-design-ai/
+    ├── SKILL.md
+    ├── README.md
+    ├── references/
+    ├── scripts/
+    └── assets/
+```
 
 ## 例
+
 - 「ship-design-aiを使い、ばら積み船の基本設計AIのAPIとDBを作成して」
-- 「ship-design-aiでNSGA-IIの多目的最適化を設計して」
-- 「ship-design-aiでNext.jsの船型比較画面を作成して」
+- 「geom-v3 の Holtrop 推定を案件要件に接続して」
+- 「制約優先で探索し、貨物 DWT と Pd のパレートを画面に出して」
 
 ## デモ
+
 ```bash
 python scripts/evaluate_hull.py --length 180 --beam 30 --draft 10 --cb 0.75
 python scripts/optimize_demo.py
 ```
 
-最適化サンプルはSciPyが必要です：`pip install scipy`。
+`optimize_demo.py` は SciPy が必要: `pip install scipy`。
 
-## 注意
-教育・プロトタイプ用です。実船設計、船級承認、航行安全の判定には使用できません。
+実装リポジトリは `C:\devlop\ship-design-ai`。UI http://localhost:3060 / API http://localhost:8060。

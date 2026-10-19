@@ -40,7 +40,7 @@ python ../.claude/skills/ship-design-ai/scripts/evaluate_hull.py --length 180 --
 - `GET /api/optimization/jobs/{id}`
 - `GET /api/projects/{id}/candidates`
 - `POST /api/design/reviews`
-- `POST /api/design/extract`（OpenAI 仕様抽出。計算は geom-v2）
+- `POST /api/design/extract`（OpenAI 仕様抽出。計算は geom-v3）
 - `POST /api/design/explain`（OpenAI 説明。船級判定ではない）
 - `PATCH /api/projects/{id}`（案件要件）
 - `GET /api/projects/{id}/compare`
